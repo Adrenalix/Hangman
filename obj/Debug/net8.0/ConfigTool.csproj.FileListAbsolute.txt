@@ -1,0 +1,14 @@
+c:\Users\Fredrik\ConfigTool\bin\Debug\net8.0\ConfigTool.exe
+C:\Users\Fredrik\ConfigTool\bin\Debug\net8.0\ConfigTool.deps.json
+C:\Users\Fredrik\ConfigTool\bin\Debug\net8.0\ConfigTool.runtimeconfig.json
+c:\Users\Fredrik\ConfigTool\bin\Debug\net8.0\ConfigTool.dll
+c:\Users\Fredrik\ConfigTool\bin\Debug\net8.0\ConfigTool.pdb
+c:\Users\Fredrik\ConfigTool\obj\Debug\net8.0\ConfigTool.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\Fredrik\ConfigTool\obj\Debug\net8.0\ConfigTool.AssemblyInfoInputs.cache
+c:\Users\Fredrik\ConfigTool\obj\Debug\net8.0\ConfigTool.AssemblyInfo.cs
+c:\Users\Fredrik\ConfigTool\obj\Debug\net8.0\ConfigTool.csproj.CoreCompileInputs.cache
+c:\Users\Fredrik\ConfigTool\obj\Debug\net8.0\ConfigTool.dll
+c:\Users\Fredrik\ConfigTool\obj\Debug\net8.0\refint\ConfigTool.dll
+c:\Users\Fredrik\ConfigTool\obj\Debug\net8.0\ConfigTool.pdb
+C:\Users\Fredrik\ConfigTool\obj\Debug\net8.0\ConfigTool.genruntimeconfig.cache
+C:\Users\Fredrik\ConfigTool\obj\Debug\net8.0\ref\ConfigTool.dll
