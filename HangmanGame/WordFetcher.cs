@@ -30,7 +30,7 @@ namespace HangmanGame
                 }
                 else
                 {
-                    return "ERROR"; // Om API-anropet misslyckas
+                    return "ERROR"; // Om anropet misslyckas
                 }
             }
             catch

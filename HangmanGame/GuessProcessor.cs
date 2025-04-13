@@ -4,7 +4,7 @@ namespace HangmanGame
 {
     public class GuessProcessor
     {
-        private string wordToGuess;
+        public string wordToGuess { get; }
         private string guessedLetters;
         private int wrongGuesses;
 
@@ -24,19 +24,19 @@ namespace HangmanGame
 
             if (guessedLetters.Contains(guess))
             {
-                return "Bokstav redan använd!";
+                return "Letter already used!";
             }
 
             guessedLetters += guess;
 
             if (wordToGuess.Contains(guess))
             {
-                return "Bra gissat!";
+                return "Good guess!";
             }
             else
             {
                 wrongGuesses++;
-                return "Fel gissning! Försök igen.";
+                return "Wrong guess! Try again.";
             }
         }
 

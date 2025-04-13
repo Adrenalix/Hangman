@@ -10,14 +10,16 @@ namespace HangmanGame
 {
     public partial class MainWindow : Window
     {
-        private GuessProcessor guessProcessor;
+        private GuessProcessor? guessProcessor;
         private readonly WordFetcher wordFetcher;
+        private HangmanFigure hangmanFigure;
 
         public MainWindow()
         {
             InitializeComponent();
             wordFetcher = new WordFetcher();
             FetchRandomWordAsync();
+            hangmanFigure = new HangmanFigure(hangmanCanvas);
         }
 
         private async void FetchRandomWordAsync()
@@ -53,16 +55,23 @@ namespace HangmanGame
 
         private void ProcessGuess()
         {
-            string guess = guessTextBox.Text;
+            string guess = guessTextBox.Text.Trim().ToUpper();
             guessTextBox.Clear();
 
-            string message = guessProcessor.ProcessGuess(guess);
-            messageTextBlock.Text = message;
+            if (guess.Length == 1 || guess.Length == guessProcessor.GetWordDisplay().Replace(" ", "").Length)
+            {
+                string message = guessProcessor.ProcessGuess(guess);
+                messageTextBlock.Text = message;
 
-            UpdateGuessedLettersDisplay();
-            UpdateWordDisplay();
-            UpdateHangman();
-            CheckGameOver();
+                UpdateGuessedLettersDisplay();
+                UpdateWordDisplay();
+                UpdateHangman();
+                CheckGameOver();
+            }
+            else
+            {
+                messageTextBlock.Text = "You need to write a single letter or the whole word!";
+            }
         }
 
         private void UpdateGuessedLettersDisplay()
@@ -77,38 +86,21 @@ namespace HangmanGame
 
         private void UpdateHangman()
         {
-            string[] hangmanStages = new string[]
-            {
-                "",
-                "O",          // Huvud
-                "O\n|",       // Kropp
-                "O\n/|",      // En arm
-                "O\n/|\\",    // Två armar
-                "O\n/|\\\n/", // Ett ben
-                "O\n/|\\\n/ \\" // Två ben
-            };
-
-            if (guessProcessor.WrongGuesses >= hangmanStages.Length)
-            {
-                hangmanTextBlock.Text = hangmanStages[hangmanStages.Length - 1];
-            }
-            else
-            {
-                hangmanTextBlock.Text = hangmanStages[guessProcessor.WrongGuesses];
-            }
+                hangmanFigure.UpdateFigure(guessProcessor.WrongGuesses);
         }
 
         private void CheckGameOver()
         {
             if (wordTextBlock.Text.Replace(" ", "") == guessProcessor.GuessedLetters)
             {
-                messageTextBlock.Text = "Grattis, du vann!";
+                messageTextBlock.Text = "Congratulations, You Won!";
                 guessButton.Visibility = Visibility.Collapsed;
                 restartButton.Visibility = Visibility.Visible;
             }
             else if (guessProcessor.WrongGuesses >= 6)
             {
-                messageTextBlock.Text = "Tyvärr, du förlorade!";
+                wordTextBlock.Text = guessProcessor.wordToGuess;
+                messageTextBlock.Text = "Sorry, You Lost!";
                 guessButton.Visibility = Visibility.Collapsed;
                 restartButton.Visibility = Visibility.Visible;
             }
@@ -118,7 +110,6 @@ namespace HangmanGame
         {
             FetchRandomWordAsync();
             guessedLettersTextBlock.Text = "";
-            hangmanTextBlock.Text = "";
             messageTextBlock.Text = "";
             restartButton.Visibility = Visibility.Collapsed;
             guessButton.Visibility = Visibility.Visible;

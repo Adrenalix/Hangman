@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-c:\Users\Fredrik\ConfigTool\HangmanGame\obj\Debug\net8.0-windows\
+c:\Users\Fredrik\Hangman\HangmanGame\obj\Debug\net8.0-windows\
 HangmanGame
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-c:\Users\Fredrik\ConfigTool\HangmanGame\App.xaml
+c:\Users\Fredrik\Hangman\HangmanGame\App.xaml
 11407045341
 
-6-564443186
+71625373711
 198-344842731
 MainWindow.xaml;
 
