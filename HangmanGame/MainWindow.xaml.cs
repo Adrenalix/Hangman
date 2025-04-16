@@ -13,6 +13,8 @@ namespace HangmanGame
         private GuessProcessor? guessProcessor;
         private readonly WordFetcher wordFetcher;
         private HangmanFigure hangmanFigure;
+        private GameResetHandler? gameResetHandler;
+        private GameOverHandler? gameOverHandler;
 
         public MainWindow()
         {
@@ -20,9 +22,14 @@ namespace HangmanGame
             wordFetcher = new WordFetcher();
             FetchRandomWordAsync();
             hangmanFigure = new HangmanFigure(hangmanCanvas);
+            // Initiera GameResetHandler
+            gameResetHandler = new GameResetHandler(guessedLettersTextBlock, messageTextBlock, restartButton, guessButton, this);
+            // Initiera GameOverHandler
+            gameOverHandler = new GameOverHandler(wordTextBlock, messageTextBlock, guessButton, restartButton);
+
         }
 
-        private async void FetchRandomWordAsync()
+        public async void FetchRandomWordAsync()
         {
             string word = await wordFetcher.FetchRandomWordAsync();
             guessProcessor = new GuessProcessor(word);
@@ -91,28 +98,18 @@ namespace HangmanGame
 
         private void CheckGameOver()
         {
-            if (wordTextBlock.Text.Replace(" ", "") == guessProcessor.GuessedLetters)
-            {
-                messageTextBlock.Text = "Congratulations, You Won!";
-                guessButton.Visibility = Visibility.Collapsed;
-                restartButton.Visibility = Visibility.Visible;
-            }
-            else if (guessProcessor.WrongGuesses >= 6)
-            {
-                wordTextBlock.Text = guessProcessor.wordToGuess;
-                messageTextBlock.Text = "Sorry, You Lost!";
-                guessButton.Visibility = Visibility.Collapsed;
-                restartButton.Visibility = Visibility.Visible;
-            }
+            if (guessProcessor == null) return;
+
+            gameOverHandler?.CheckGameOver(
+                guessProcessor.GuessedLetters,
+                guessProcessor.wordToGuess,
+                guessProcessor.WrongGuesses
+            );
         }
 
-        private void RestartButton_Click(object sender, RoutedEventArgs e)
+        public void RestartButton_Click(object sender, RoutedEventArgs e)
         {
-            FetchRandomWordAsync();
-            guessedLettersTextBlock.Text = "";
-            messageTextBlock.Text = "";
-            restartButton.Visibility = Visibility.Collapsed;
-            guessButton.Visibility = Visibility.Visible;
+            gameResetHandler?.ResetGame();
         }
     }
 }
